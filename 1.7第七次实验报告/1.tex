@@ -1,0 +1,77 @@
+\documentclass[10pt, a4paper]{article} % 设置字体大小和纸张类型
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+
+\usepackage{booktabs} % 支持更专业的表格线条
+\usepackage{ctex}
+\usepackage{caption} % 插图和表格的标题格式
+\usepackage{amsmath, amsfonts, amssymb} % 数学公式支持
+\usepackage{graphicx} % 插入图片
+\usepackage{hyperref} % 超链接支持
+\usepackage{hypcap} % 修正超链接指向的图片位置
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{fmtcount} % 用于数字到中文的转换
+\usepackage{enumitem} % 加载 enumitem 宏包
+\usepackage{multirow} % 支持多行单元格
+\usepackage{diagbox}
+\usepackage{makecell} % 支持单元格内换行
+\usepackage{tikz}
+\usepackage{makecell}
+\usepackage{unicode-math}
+\setmathfont{Latin Modern Math}
+
+
+
+\renewcommand{\thesection}{\chinese{section}、}
+\renewcommand{\thesubsection}{\arabic{subsection}.}
+
+
+\begin{document}
+
+\begin{titlepage}
+    \newgeometry{left=0cm, right=0cm, top=0cm, bottom=0cm}
+    \centering
+    \includegraphics[page=1, width=0.9\textwidth, keepaspectratio]{image/实验报告撰写封面.pdf}
+    \restoregeometry
+\end{titlepage}
+
+\setcounter{section}{2}
+
+\section{实验目的}
+
+\begin{enumerate}[leftmargin=50pt,label=(\arabic*)] % 设置序号格式为(1)
+    \item text
+\end{enumerate}
+
+\section{设计任务与要求}
+
+暂不需要。
+
+\section{实验原理与方案设计}
+\subsection{实验原理}
+\section{实验内容、测试数据以及结论}
+
+\subsection{实验内容}
+
+\subsection{实验结论}
+……
+\section{思考题}
+\subsection{题面}
+\begin{enumerate}[leftmargin=50pt,label=(\arabic*)] % 设置序号格式为(1)
+    \item text
+
+\end{enumerate}
+\subsection{回答}
+
+\begin{enumerate}[leftmargin=50pt,label=(\arabic*)] % 设置序号格式为(1)
+    \item text
+\end{enumerate}
+
+\section{实验体会及建议}
+\subsection{实验体会}
+测量时应注意小心调试仪器, 尽量将读数稳定在误差允许范围内进行读数。
+\subsection{建议}
+注意电源正负极的接入, 防止反接造成仪器损坏, 注意正负电压的接入, 防止反接造成仪器损坏。
+
+\end{document}
