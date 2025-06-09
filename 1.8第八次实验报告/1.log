@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.10.7)  9 JUN 2025 21:32
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.10.7)  9 JUN 2025 22:17
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1131,11 +1131,20 @@ File: image/5.png Graphic file (type bmp)
 <image/5.png>
  [3
 
-] [4
+]
+File: image/6.jpg Graphic file (type bmp)
+<image/6.jpg>
+File: image/7.jpg Graphic file (type bmp)
+<image/7.jpg>
+File: image/8.jpg Graphic file (type bmp)
+<image/8.jpg>
+File: image/9.jpg Graphic file (type bmp)
+<image/9.jpg>
+File: image/10.jpg Graphic file (type bmp)
+<image/10.jpg>
+ [4
 
-] [5
-
-] [6
+] [5] [6
 
 ] (./1.aux)
  ***********
@@ -1144,12 +1153,12 @@ L3 programming layer <2022/07/14>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 33277 strings out of 474773
- 674184 string characters out of 5761289
+ 33291 strings out of 474773
+ 672831 string characters out of 5761289
  1932842 words of memory out of 5000000
- 54878 multiletter control sequences out of 15000+600000
+ 54886 multiletter control sequences out of 15000+600000
  563477 words of font info for 93 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 88i,7n,114p,518b,484s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 88i,9n,114p,518b,517s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 Output written on 1.pdf (7 pages).
