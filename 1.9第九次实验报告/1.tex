@@ -1,0 +1,195 @@
+\documentclass[10pt, a4paper]{article} % 设置字体大小和纸张类型
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+
+\usepackage{booktabs} % 支持更专业的表格线条
+\usepackage{ctex}
+\usepackage{caption} % 插图和表格的标题格式
+\usepackage{amsmath, amsfonts, amssymb} % 数学公式支持
+\usepackage{graphicx} % 插入图片
+\usepackage{hyperref} % 超链接支持
+\usepackage{hypcap} % 修正超链接指向的图片位置
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{fmtcount} % 用于数字到中文的转换
+\usepackage{enumitem} % 加载 enumitem 宏包
+\usepackage{multirow} % 支持多行单元格
+\usepackage{diagbox}
+\usepackage{makecell} % 支持单元格内换行
+\usepackage{tikz}
+\usepackage{makecell}
+\usepackage{unicode-math}
+\usepackage{bookmark}
+\setmathfont{Latin Modern Math}
+
+
+
+\renewcommand{\thesection}{\chinese{section}、}
+\renewcommand{\thesubsection}{\arabic{subsection}.}
+
+
+\begin{document}
+
+\begin{titlepage}
+    \newgeometry{left=0cm, right=0cm, top=0cm, bottom=0cm}
+    \centering
+    \includegraphics[page=1, width=0.9\textwidth, keepaspectratio]{image/实验报告撰写封面.pdf}
+    \restoregeometry
+\end{titlepage}
+
+\setcounter{section}{2}
+
+\section{实验目的}
+
+\begin{enumerate}[leftmargin=50pt,label=(\arabic*)] % 设置序号格式为(1)
+    \item 理解模拟传感器的概念及应用；
+    \item 掌握利用集成运放单元电路进行电子电路系统设计方法；
+    \item 掌握声光驱动电路的设计方法；
+    \item 掌握电路的调试和指标测试技术。
+\end{enumerate}
+
+\section{设计任务与要求}
+
+通过两个温度传感器获得的电压差实现火灾自动报警，火灾报警电路如图所示，$v_{11}$和$V_{12}$分别来源于两个温度传感器，他们安装在室内同一处。但是一个安装在金属板上，产生$v_{11}$;另一个安装在塑料壳体内部，产生$v_{12}$.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\linewidth]{image/1.png}
+    \caption{火灾报警器方框图}
+    \label{fig:实验电路图}
+\end{figure}
+
+在没有火情时，即正常情况下，两个温度传感器所产生的电压近似相等，$v_{11} - v_{12}$数值很小，发光二极管和晶体管均戒指，发光二极管不亮，蜂鸣器不响。
+当有火情时，安装在金属板上的温度传感器因金属板导热块，所以升温较快，而安装在塑料壳体内的温度传感器升温较慢，使得$v_{11}$和$v_{12}$产生差值电压，差值电压增大到一定数值时，发光二极管发光，蜂鸣器鸣叫，发光二极管和蜂鸣器同时发出警告。
+
+\section{实验原理与方案设计}
+\subsection{实验原理}
+(1) 二极管的温度特性
+
+二极管具有单向导电特性，利用其单向导电特性广泛应用于整流、限幅、钳位等电子电路设计中。二极管伏安特性曲线如图2所示，在导通区域，二极管的正向电压略微增加，将引起正向电流较大幅度增加。二极管的电压电流关系曲线与温度有关，通常是温度升高，其正向伏安特性曲线左移，由图 6.7.2 可知，当二极管正向电压保持不变时，温度升高，其正向电流会增加；或者保持二极管正向电流不变，则随着温度升高，二极管两端电压会减小。
+\clearpage
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{image/2.png}
+    \caption{二极管伏安特性曲线}
+\end{figure}
+
+由 PN 结特性，当流过二极管的正向电流固定时，温度每上升 1℃，正向电压下降大约 2 mV。
+
+(2) 温度传感器设计示例
+
+由此可知，二极管能够将温度变化量转换为相应的电压量，具有温度传感器的特性。由二极管制作温度传感器需要解决如何在温度变化的情况下，二极管的正向电流保持不变（当然其正向电压一定会改变），如何提取二极管的正向电压值（温度改变引起的变化量），以利于能送到后级电路进行信号处理。
+
+图 3 为一种设计示例，由运放的特性可知流过二极管的电流为
+
+ $$ I_D = I_R = \frac{0 - (-V_{CC})}{R} $$ 
+
+运放的输出电压为二极管的正向电压，即  $ v_o = v_D $。当温度升高时，二极管正向电压减小，即运放输出电压减小。温度每升高 1℃，运放的输出电压会减小约 2 mV。
+
+二极管可以选择 1N4148，其最大正向电压可以达到 1 V，正常正向电流为 150 mA，最大正向电流可达 500 mA。
+
+(3) 差分放大器
+
+当有火情时，$v_{i1}$（金属板处温度传感器输出）和 $v_{i2}$（塑料壳体内部温度传感器输出）产生差值电压，需要将差值电压进行放大处理，可以采用差分放大器来实现。由运放构成的典型差分放大器如图 4 所示，当输入级参数具有对称性，根据运放的虚短路、虚断路特性很容易得到输出电压 $v_o = (v_{i2} - v_{i1}) \frac{R_f}{R}$。
+
+题目要求两路温度传感器相差 50℃时启动后续报警电路，即两路温度传感器输出的电压差值为 0.1 V 时，要能够使后续电压比较器的状态发生翻转，故差分放大器的放大倍数要结合后续比较器的比较门限来进行设计。
+
+
+\begin{figure}[ht]
+    \begin{minipage}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{image/3.png}
+        \caption{温度传感器设计示例}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{image/4.png}
+        \caption{差分放大器}
+    \end{minipage}
+\end{figure}
+
+(4)电压比较器设计示例
+
+电压比较器是对输入信号进行鉴别与比较的电路，广泛用于各种判决、报警等电路中。本设计中，随着温度的持续升高，差分放大的输出电压会一直增加，当差分放大输出达到某一设定值，需要启动后续报警电路，所以设计比较器来进行判决。根据设计要求，可以设计一单门限比较器，如图 5 所示。比较器电路的阈值电压 $V_T$ 为
+
+ $$ V_T = \frac{R_4}{R_3 + R_4} V_{CC} $$ 
+
+单门限比较器的电压传输特性如图 6 所示。
+
+为适应负载对电压幅值的要求，比较器输出端通常需要加限幅电路，限幅电路可以利用两个稳压二极管来实现，带限幅电路的比较器如图 7 所示。特别注意的是：在图 7 中，当比较器输出负电压时，后级负载电流为零（晶体管、二极管均截止）；输出正电压时，后级负载电流需要根据驱动电路所需电流来计算。
+
+\begin{figure}[ht]
+    \begin{minipage}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{image/5.png}
+        \caption{单门限比较器}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{image/6.png}
+        \caption{带限幅电路的比较器}
+    \end{minipage}
+\end{figure}
+
+
+
+(5) 报警驱动电路的设计与制作
+
+正常情况下，比较器输出为负电压，后级发光二极管不亮、蜂鸣器不发声。随着温度升高到一定程度时，比较器将输出正电压，这时要求二极管发光、蜂鸣器（有源）鸣叫，所以需结合发光二极管、蜂鸣器的特性设计后级驱动电路。
+
+满足本次设计的报警驱动电路如图 8 所示，比较器的输出信号接入报警驱动电路，当比较器输出为负电压时，发光二极管、晶体管均截止，电流为零，报警电路不启动。当比较器输出为正电压时，发光二极管因导通而发光，与此同时晶体管 T 导通，蜂鸣器（有源）鸣叫。流过发光二极管的电流为
+
+ $$ I_D = \frac{V_Z - V_D}{R_5} $$ 
+
+因此需合理选择电阻值 $R_5$，满足发光二极管的电流要求。晶体管工作在放大区时，基极电流和集电极电流关系为 $I_B = I_C / \beta$，若参数选择的结果是晶体管在导通时处于饱和状态，则使 $I_B \gg I_C / \beta$，即
+
+ $$ I_B = \frac{V_Z - V_{BE}}{R_6} \gg \frac{I_C}{\beta} $$ 
+
+ 因此需要确定蜂鸣器的工作电流 $I_C$，并根据晶体管的参数选择合适的 $R_6$。
+\begin{figure}[ht]
+    \begin{minipage}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{image/7.png}
+        \caption{带限幅电路的比较器}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{image/8.png}
+        \caption{报警驱动电路}
+    \end{minipage}
+\end{figure}
+
+\section{实验内容、测试数据以及结论}
+
+\subsection{实验内容}
+(1) 温度传感器设计与制作
+
+ 用数字电压表测量正常情况下两个温度传感器的输出电压为0.6V
+ 
+ (2) 差分放大器设计与制作
+
+正常情况下差分放大器输出为-100mV左右，选择了30倍放大倍数。
+
+当用手摸二极管模拟升温时，输出为300mV左右。
+
+(3) 比较器设计与制作
+
+选择门限在-200mV左右，低于 -200mV时，报警，高于 -200mV时，报警停止。
+
+(4) 报警驱动电路设计与制作
+
+输入一个5V的正电压，发光二极管亮起，蜂鸣器鸣叫。
+
+\subsection{实验结论}
+本实验成功做出一个火灾报警器，能够在温度升高时发出警报。通过对温度传感器、差分放大器、比较器和报警驱动电路的设计与调试，验证了模拟传感器的工作原理及其在实际应用中的有效性。
+
+
+\section{实验体会及建议}
+\subsection{实验体会}
+要根据器件实际要求选择合适的放大倍数
+\subsection{建议}
+注意电源正负极的接入, 防止反接造成仪器损坏, 注意正负电压的接入, 防止反接造成仪器损坏。
+
+\end{document}
